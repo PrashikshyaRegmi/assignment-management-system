@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% block content_header %}
+     <h2>Add Assignment</h2>
+    <p>
+      <a href="{% url 'stud' %}" class="btn btn-primary"></a>
+    </p>
+  {% endblock %}
+
+  <table class="table mb-0">
+    <thead>
+      <tr>
+        <th>Studentname</th>
+        <th>Subject</th>
+        <th>Completion Date</th>
+          <th>Status</th>
+
+        <th>Download</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in students %}
+        <tr>
+          <td>
+            {{ student.studentname }}
+          </td>
+          <td>{{  student.subject }}</td>
+          <td>{{  student.completiondate }}</td>
+           <td>{{  student.status }}</td>
+
+
+          <td>
+            <a href="{{  student.studassignments.url }}" class="btn btn-primary btn-sm" target="_blank">
+              Download Assignment
+            </a>
+          </td>
+          <td>
+            <form method="post" action="{% url 'delete1' student.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

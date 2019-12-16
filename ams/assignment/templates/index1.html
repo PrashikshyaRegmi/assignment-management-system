@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h2>Upload assignment</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>{{ form.studentname|as_crispy_field }}</div>
+     <div>{{ form.studentemail|as_crispy_field }}</div>
+     <div>{{ form.subject|as_crispy_field }}</div>
+     <div>{{ form.completiondate|as_crispy_field }}</div>
+     <div>{{ form.studassignments|as_crispy_field }}</div>
+     <div>{{ form.status|as_crispy_field }}</div>
+
+    <button type="submit" class="btn btn-primary">Upload assignment</button>
+  </form>
+{% endblock %}

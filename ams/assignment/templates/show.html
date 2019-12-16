@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% block content_header %}
+     <h2>Add Assignment</h2>
+    <p>
+      <a href="{% url 'tech' %}" class="btn btn-primary"></a>
+    </p>
+  {% endblock %}
+
+  <table class="table mb-0">
+    <thead>
+      <tr>
+        <th>Teachername</th>
+        <th>Subject</th>
+        <th>Due Date</th>
+        <th>Download</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for teacher in teachers %}
+        <tr>
+          <td>
+            {{ teacher.teachername }}
+          </td>
+          <td>{{ teacher.teachersubject }}</td>
+          <td>{{ teacher.duedate }}</td>
+          <td>
+            <a href="{{ teacher.assignments.url }}" class="btn btn-primary btn-sm" target="_blank">
+              Download Assignment
+            </a>
+          </td>
+          <td>
+            <form method="post" action="{% url 'delete' teacher.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
